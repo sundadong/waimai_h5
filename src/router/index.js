@@ -1,29 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Position from '@/pages/Position'
 import Home from '@/pages/Home'
-import Shop from '@/pages/Shop'
+import position from './position'
+import shop from './shop'
 
 Vue.use(VueRouter)
 
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    meta: {
+      title: '首页'
+    },
+    component: Home
+  },
+  ...position,
+  ...shop
+]
+
 const router = new VueRouter({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/position',
-      name: 'position',
-      component: Position
-    },
-    {
-      path: '/shop/:id',
-      name: 'shop',
-      component: Shop
-    }
-  ]
+  routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
 })
 
 export default router

@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import logo from '../assets/logo.png'
+import logo from '../assets/images/logo.png'
 
 export default {
   name: 'shop',
@@ -250,7 +250,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../scss/variable';
+@import '../assets/scss/variable';
 
 .m-shop-item {
   position: relative;

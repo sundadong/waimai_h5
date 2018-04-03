@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import logo from '../assets/logo.png'
+import logo from '../assets/images/logo.png'
+import { getUserInfo, updateUserInfo } from '../api'
 
 export default {
   name: 'home',
@@ -127,6 +128,12 @@ export default {
         }
       ]
     }
+  },
+  created () {
+    getUserInfo('1')
+    updateUserInfo({
+      username: 'dongge'
+    })
   }
 }
 </script>
