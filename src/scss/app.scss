@@ -1,0 +1,245 @@
+@import "./variable";
+@import "./base";
+@import "./icon";
+
+.u-label {
+  padding: pxTorem(6px) pxTorem(8px);
+  font-size: $extra-small-font-size;
+  border-radius: pxTorem(5px);
+}
+
+.u-label-primary {
+  color: #fff;
+  background: linear-gradient(to right, #6DC3FF, #2894FF);
+}
+
+.u-label-success {
+  color: #fff;
+  background: linear-gradient(to right, #54E9A8, #44BF89);
+}
+
+.u-label-warning {
+  color: #fff;
+  background: linear-gradient(to right, #F9C084, #F3A552);
+}
+
+.u-label-danger {
+  color: #fff;
+  background: linear-gradient(to right, #F6A4A5, #F96668);
+}
+
+.u-badge {
+  display: inline-block;
+  min-width: pxTorem(40px);
+  padding: pxTorem(10px) pxTorem(8px);
+  font-size: $extra-small-font-size;
+  color: $bright-color;
+  line-height: 1;
+  background-color: $danger-color;
+  border-radius: pxTorem(30px);
+}
+
+.u-btn {
+  display: inline-block;
+  padding: pxTorem(10px) pxTorem(20px);
+  font-size: $base-font-size;
+  text-align: center;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: pxTorem(6px);
+  box-shadow: none;
+}
+
+.u-btn-sm {
+  font-size: $small-font-size;
+  padding: pxTorem(6px) pxTorem(10px);
+}
+
+.u-btn-lg {
+  font-size: $subtitle-font-size;
+  padding: pxTorem(16px) pxTorem(30px);
+}
+
+.u-btn-block {
+  display: block;
+}
+
+.u-btn-round {
+  border-radius: 50%;
+}
+
+.u-btn-primary {
+  color: #fff;
+  background: linear-gradient(to right, #6DC3FF, #2894FF);
+}
+
+.m-stepper {
+  position: relative;
+  display: inline-block;
+}
+
+.m-stepper-ctrl {
+  position: absolute;
+  top: 0;
+  width: pxTorem(38px);
+  height: pxTorem(38px);
+  font-size: $base-font-size;
+  color: $bright-color;
+  text-align: center;
+  text-indent: -9999px;
+  background: linear-gradient(to right, #6DC3FF, #2894FF);
+  border: none;
+  border-radius: pxTorem(40px);
+  cursor: pointer;
+}
+
+.m-stepper-ctrl::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  width: pxTorem(18px);
+  height: pxTorem(4px);
+  background-color: $bright-color;
+  transform: translate(-50%, -50%);
+}
+
+.m-stepper-plus::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  height: pxTorem(18px);
+  width: pxTorem(4px);
+  background-color: $bright-color;
+  transform: translate(-50%, -50%);
+}
+
+.m-stepper-minus {
+  left: 0;
+}
+
+.m-stepper-plus {
+  right: 0;
+}
+
+.m-stepper-input {
+  width: pxTorem(130px);
+  padding: 0 pxTorem(40px);
+  height: pxTorem(38px);
+  font-size: $small-font-size;
+  color: $base-text-color;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  vertical-align: top;
+}
+
+.m-stepper-input::-webkit-outer-spin-button,
+.m-stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.app {
+  min-height: 100%;
+  font-size: $base-font-size;
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+  background-color: $bg-color;
+}
+
+.app-header,
+.app-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+.app-header {
+  top: 0;
+  height: $header-height;
+}
+
+.app-footer {
+  bottom: 0;
+  height: $footer-height;
+}
+
+.app-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.has-header .app-body {
+  padding-top: $header-height;
+}
+
+.has-footer .app-body {
+  padding-bottom: $footer-height;
+}
+
+.app-action-bar {
+  padding: 0 pxTorem(20px);
+  height: $header-height;
+  font-size: $title-font-size;
+  color: $bright-color;
+  line-height: $header-height;
+  background-color: $primary-color;
+}
+
+.m-shop-item {
+  margin-bottom: pxTorem(15px);
+}
+
+.m-shop-item>a {
+  display: flex;
+  padding: pxTorem(20px);
+  background-color: #fff;
+}
+
+.m-shop-info {
+  flex: 1 1 auto;
+  padding-left: pxTorem(10px);
+}
+
+.m-shop-info p,
+.m-shop-activity p {
+  margin-bottom: pxTorem(10px);
+}
+
+.m-shop-logo {
+  width: pxTorem(88px);
+  height: pxTorem(88px);
+  border-radius: pxTorem(5px);
+}
+
+.m-shop-name {
+  margin-bottom: pxTorem(10px);
+  font-size: $title-font-size;
+  color: $primary-text-color;
+}
+
+.m-shop-address {
+  display: inline-block;
+  max-width: pxTorem(460px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.m-shop-address>.u-icon {
+  color: $primary-color;
+}
+
+.m-shop-activity {
+  padding: pxTorem(20px) 0;
+  color: #999;
+}
+
+.m-shop-activity p:last-child {
+  margin-bottom: 0;
+}
+
+.m-shop-activity .u-label {
+  margin-right: pxTorem(10px);
+}
