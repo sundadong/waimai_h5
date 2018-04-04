@@ -9,6 +9,8 @@ Vue.use(Toast)
 
 Vue.config.productionTip = false
 
+localStorage.setItem('access_token', '1249fijsdanr')
+
 /* eslint-disable no-new */
 const app = new Vue({
   el: '#app',

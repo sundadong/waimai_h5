@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import * as Util from './util'
 
 const baseURL = '/'
 
@@ -10,8 +11,7 @@ const Http = axios.create({
   withCredentials: true, // 是否允许带cookie这些
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'Source': 'ydb_h5',
-    'Appid': 'fqejnf3439454968946'
+    'Source': 'ydb_h5'
   }
 })
 
@@ -19,7 +19,7 @@ Http.interceptors.request.use(config => {
   const token = localStorage.getItem('access_token')
   // 序列化数据
   if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
-    config.headers.Sign = JSON.stringify(config.data)
+    config.headers.Sign = Util.createSign(config.data)
     config.data = qs.stringify(config.data)
   }
   if (token) {

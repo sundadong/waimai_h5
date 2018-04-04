@@ -130,9 +130,14 @@ export default {
     }
   },
   created () {
-    getUserInfo('1')
+    getUserInfo(1)
+      .then(res => {
+        console.log(res)
+      })
     updateUserInfo({
-      username: 'dongge'
+      name: 'dongge',
+      sex: 1,
+      age: 26
     })
   }
 }

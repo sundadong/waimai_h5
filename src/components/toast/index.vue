@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../scss/variable';
+@import '../../assets/scss/variable';
 
 .toast {
   position: fixed;

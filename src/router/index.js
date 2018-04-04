@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import * as Util from '@/util/util'
 import Home from '@/pages/Home'
 import position from './position'
 import shop from './shop'
@@ -25,7 +26,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
-    document.title = to.meta.title
+    Util.setTitle(to.meta.title)
   }
   next()
 })

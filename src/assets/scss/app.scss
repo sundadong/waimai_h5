@@ -31,12 +31,13 @@
 .u-badge {
   display: inline-block;
   min-width: pxTorem(40px);
-  padding: pxTorem(10px) pxTorem(8px);
+  padding: pxTorem(8px);
   font-size: $extra-small-font-size;
   color: $bright-color;
   line-height: 1;
+  text-align: center;
   background-color: $danger-color;
-  border-radius: pxTorem(30px);
+  border-radius: pxTorem(24px);
 }
 
 .u-btn {
@@ -153,6 +154,7 @@
   position: fixed;
   left: 0;
   right: 0;
+  z-index: 9;
 }
 
 .app-header {
