@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     name: 'home',
     meta: {
-      title: '首页'
+      title: '微外卖'
     },
     component: Home
   },

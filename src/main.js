@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from '@/App'
 import router from '@/router'
 import Toast from '@/components/toast'
+import Http from '@/util/http'
 
 Vue.use(Toast)
+Vue.prototype.$http = Http
 
 Vue.config.productionTip = false
 

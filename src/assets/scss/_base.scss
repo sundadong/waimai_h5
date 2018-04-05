@@ -8,8 +8,18 @@
 
 html,
 body,
-#app {
+.app {
   height: 100%;
+}
+
+body,
+.app {
+  font-size: $base-font-size;
+  font-family: $base-font-family;
+  color: $base-text-color;
+  line-height: $base-line-height;
+  background-color: $bg-color;
+  -webkit-font-smoothing: antialiased;
 }
 
 ul,
@@ -49,34 +59,33 @@ h6 {
   font-weight: normal;
 }
 
-.f-clearfix:after {
+.ydb-clearfix:after {
   display: table;
   content: "";
-  line-height: 0;
   clear: both;
 }
 
-.f-fl {
+.ydb-fl {
   float: left;
 }
 
-.f-fr {
+.ydb-fr {
   float: right;
 }
 
-.f-text-muted {
+.ydb-text-muted {
   color: $secondary-text-color;
 }
 
-.f-text-primary {
+.ydb-text-primary {
   color: $primary-color;
 }
 
-.f-text-danger {
+.ydb-text-danger {
   color: $danger-color;
 }
 
-.f-text-ellipsis {
+.ydb-text-ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

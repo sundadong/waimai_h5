@@ -3,7 +3,7 @@ const position = [
     path: '/position',
     name: 'position',
     meta: {
-      title: '选择位置'
+      title: '选择地址'
     },
     component: () => import('@/pages/Position')
   }

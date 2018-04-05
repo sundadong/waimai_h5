@@ -1,22 +1,24 @@
 <template>
-  <div class="app">
+  <div class="app" style="background-color: #fff;">
     <section class="app-body" ref="appBody" @scroll="scrollGood">
       <div class="m-shop-item" ref="shopHeader">
-        <img class="m-shop-bg" :src="shop.logo">
-        <a href="javascript:;">
+        <div class="m-shop-mask">
+          <img class="m-shop-bg" :src="shop.logo">
+        </div>
+        <div class="m-shop-box" @click="showToast">
           <img class="m-shop-logo" :src="shop.logo">
           <div class="m-shop-info">
             <h2 class="m-shop-name">{{shop.name}}</h2>
-            <p class="m-shop-notice f-text-ellipsis">公告：{{shop.notice}}</p>
-            <p style="margin-bottom: 0;"><span class="u-label u-label-primary">{{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</span></p>
+            <p style="color: #475669;">月销{{shop.volume}}  {{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</p>
+            <p class="m-shop-notice ydb-text-ellipsis" style="margin-bottom: 0;">公告：{{shop.notice}}</p>
+            <div class="m-shop-activity">
+              <span class="m-shop-activity-more">3个活动 <span class="ydb-icon ydb-icon-more"></span></span>
+              <p><span class="u-tag u-tag-danger">减</span>满31减30，满93减59，满140减88</p>
+              <p><span class="u-tag u-tag-warning">券</span>下单领取随机面额优惠券</p>
+              <p><span class="u-tag u-tag-success">新</span>门店新客立减1元</p>
+            </div>
           </div>
-        </a>
-      </div>
-      <div class="m-shop-activity" ref="shopActivity" @click="showToast">
-        <span class="m-shop-activity-more">3个活动 <span class="u-icon icon-more"></span></span>
-        <p><span class="u-label u-label-danger">减</span>满31减30，满93减59，满140减88</p>
-        <p><span class="u-label u-label-warning">券</span>下单领取随机面额优惠券</p>
-        <p><span class="u-label u-label-success">新</span>门店新客立减1元</p>
+        </div>
       </div>
       <div class="m-shop-nav-box">
         <div class="m-shop-nav" ref="shopNav">
@@ -27,7 +29,7 @@
       </div>
       <div class="m-shop-main" ref="shopMain">
         <div class="m-shop-good" v-show="type === 'good'">
-          <ul class="m-category-list m-shop-good-category">
+          <ul class="m-category-list m-shop-good-category" ref="goodCate">
             <li v-for="cate in cates" :key="cate.id" :data-id="cate.id" class="m-category-item" :class="{active: curCate === cate.id}" ref="cateItem" @click="selectedCate(cate.id)">
               <a href="javascript:;">{{cate.name}}
                 <span v-show="cate.total > 0" class="u-badge">{{cate.total}}</span>
@@ -43,14 +45,14 @@
                     <img class="m-good-pic" :src="good.pic" :alt="good.title">
                     <div class="m-good-info">
                       <h3 class="m-good-title">{{good.title}}</h3>
-                      <p class="f-text-muted">{{good.desc}}</p>
-                      <p>月销{{good.volume}}份 好评率{{good.praiseRate}}</p>
-                      <p class="f-clearfix">
-                        <span class="f-fl f-text-danger">
+                      <p class="m-good-desc">{{good.desc}}</p>
+                      <p>月销{{good.volume}}  好评率{{good.praiseRate}}</p>
+                      <p class="ydb-clearfix">
+                        <span class="ydb-fl ydb-text-danger">
                           <span class="m-good-price-symbol">¥</span>
                           <span class="m-good-price">{{good.price}}</span>
                         </span>
-                        <span class="m-stepper f-fr">
+                        <span class="m-stepper ydb-fr">
                           <button v-if="good.number > 0" class="m-stepper-ctrl m-stepper-minus" @click="minusGood(cate.id, good.id)"><span>-</span></button>
                           <input v-if="good.number > 0" class="m-stepper-input" type="number" v-model="good.number" readonly>
                           <button class="m-stepper-ctrl m-stepper-plus" @click="plusGood(cate.id, good.id)"><span>+</span></button>
@@ -62,15 +64,17 @@
               </ul>
             </div>
           </div>
+          <div v-show="isShowCart" class="popup-mask"></div>
+          <div v-show="isShowCart" class="popup-cart"></div>
           <footer class="app-footer">
             <div class="m-shop-footer">
-              <a class="m-shop-footer-cart" href="javascript:;">
-                <span class="u-icon icon-cart"></span>
+              <a class="m-shop-footer-cart" href="javascript:;" @click="isShowCart = !isShowCart">
+                <span class="ydb-icon ydb-icon-cart"></span>
                 <span v-show="totalNumber > 0" class="u-badge">{{totalNumber}}</span>
               </a>
               <div class="m-shop-footer-info">
                 <p class="m-shop-footer-price">¥ 251.8</p>
-                <p class="m-shop-footer-delivery f-text-muted">另需配送费5元</p>
+                <p class="m-shop-footer-delivery ydb-text-muted">另需配送费5元</p>
               </div>
               <button class="u-btn u-btn-primary u-btn-lg btn-pay" href="javascript:;">立即结算</button>
             </div>
@@ -89,6 +93,7 @@
 
 <script>
 import logo from '../assets/images/logo.png'
+import cateGoods from '../data/cateGoods.json'
 
 export default {
   name: 'shop',
@@ -101,388 +106,17 @@ export default {
       totalNumber: 0,
       goodItemTop: [],
       curCate: 1,
+      isShowCart: false,
       type: 'good',
       shop: {
         logo: logo,
         name: '把愚便当(西溪店)',
         notice: '亲们觉得米饭不够使可以单点的以单点...',
-        deliveryType: '蜂鸟配送',
-        deliveryTime: 45
+        deliveryType: '蜂鸟专送',
+        deliveryTime: 45,
+        volume: 999
       },
-      cates: [
-        {
-          id: 1,
-          name: '促销',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 2,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 3,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 4,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 5,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 6,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 7,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 8,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 9,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 10,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: '主食',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: '盖浇饭',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        },
-        {
-          id: 4,
-          name: '组合套餐',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: '小吃',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 2,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 3,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 4,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 5,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 6,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 7,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 8,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 9,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 10,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        },
-        {
-          id: 6,
-          name: '饮料',
-          total: 0,
-          goods: [
-            {
-              id: 1,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 2,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 3,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 4,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 5,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 6,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 7,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 8,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 9,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            },
-            {
-              id: 10,
-              pic: 'https://dummyimage.com/120x120/eee/333',
-              title: '土豆牛肉盖浇饭',
-              desc: '五花肉卤肉白饭简单不平凡料理',
-              volume: 1413,
-              praiseRate: '97%',
-              price: 29.0,
-              number: 0
-            }
-          ]
-        }
-      ]
+      cates: []
     }
   },
   watch: {
@@ -491,7 +125,7 @@ export default {
         const _this = this
         let totalNumber = 0
 
-        val.forEach(function (cate, i) {
+        val.length > 0 && val.forEach(function (cate, i) {
           var cateTotalNumber = 0
           cate.goods.forEach(function (good, j) {
             totalNumber += parseInt(good.number)
@@ -508,12 +142,16 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
+      this.getCate()
       this.getHeight()
     })
 
     window.onresize = this.getHeight
   },
   methods: {
+    getCate () {
+      this.cates = cateGoods
+    },
     getHeight () {
       const _this = this
 
@@ -522,7 +160,7 @@ export default {
 
       _this.shopNavTop = _this.$refs.shopNav.offsetTop
       _this.shopMainTop = _this.$refs.shopMain.offsetTop
-      _this.$refs.goodItem.forEach(function (ele, index) {
+      _this.$refs.goodItem && _this.$refs.goodItem.forEach(function (ele, index) {
         _this.goodItemTop.push(ele.offsetTop)
       })
 
@@ -553,6 +191,8 @@ export default {
           this.curCate = i + 1
         }
       }
+
+      this.$refs.goodCate.scrollTop = this.$refs.cateItem[this.curCate - 1].offsetTop
     },
     selectedCate (cateId) {
       this.curCate = cateId
@@ -582,57 +222,65 @@ export default {
 .m-shop-item {
   position: relative;
   margin-bottom: 0;
+}
+
+.m-shop-mask {
+  position: relative;
+  height: pxTorem(200px);
   overflow: hidden;
 }
 
 .m-shop-bg {
   position: absolute;
-  left: pxTorem(-30px);
-  top: pxTorem(-30px);
-  width: pxTorem(810px);
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: auto;
   filter: blur(30px);
+  transform: translate(-50%, -50%);
 }
 
-.m-shop-item>a {
+.m-shop-box {
   position: relative;
-  align-items: center;
-  color: $bright-color;
-  background-color: rgba(0, 0, 0, .3);
+  padding: 0 pxTorem(80px);
+  margin-top: pxTorem(-120px);
+  text-align: center;
 }
 
 .m-shop-name {
-  font-size: pxTorem(32px);
-  color: $bright-color;
+  font-size: pxTorem(38px);
+  color: $black-color;
 }
 
 .m-shop-logo {
   width: pxTorem(160px);
   height: pxTorem(160px);
-  border-radius: pxTorem(8px);
-}
-
-.m-shop-notice {
-  max-width: pxTorem(520px);
+  background-color: $bright-color;
+  border-radius: pxTorem(6px);
 }
 
 .m-shop-activity {
   position: relative;
-  height: pxTorem(80px);
-  padding-left: pxTorem(20px);
-  padding-right: pxTorem(20px);
+  height: pxTorem(50px);
+  margin-top: 0;
+  padding: pxTorem(10px) 0;
+  text-align: left;
   background-color: $bright-color;
-  box-shadow: 0 pxTorem(1px) pxTorem(3px) rgba(0, 0, 0, .08);
   overflow: hidden;
 }
 
 .m-shop-activity p {
-  margin-bottom: pxTorem(20px);
+  margin-bottom: pxTorem(10px);
 }
 
 .m-shop-activity-more {
   position: absolute;
-  top: pxTorem(20px);
   right: 0;
+  color: $secondary-text-color;
+}
+
+.m-shop-notice {
+  font-size: $extra-small-font-size;
   color: $secondary-text-color;
 }
 
@@ -642,8 +290,22 @@ export default {
 }
 
 .m-shop-nav {
+  position: relative;
   display: flex;
   background-color: $bright-color;
+}
+
+.m-shop-nav:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  content: "";
+  transform: scale(.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
   border-bottom: 1px solid $border-color;
 }
 
@@ -652,7 +314,7 @@ export default {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 99;
+  z-index: 9;
 }
 
 .m-shop-nav-item {
@@ -690,11 +352,6 @@ export default {
   background-color: $bright-color;
 }
 
-.m-shop-good-category,
-.m-shop-good-container {
-  padding-bottom: pxTorem(98px);
-}
-
 .m-shop-main.fixed .m-shop-good-category {
   position: fixed;
   top: pxTorem(80px);
@@ -707,9 +364,15 @@ export default {
   margin-left: pxTorem(160px);
 }
 
+.m-shop-good-container {
+  padding-bottom: pxTorem(98px);
+}
+
 .m-shop-good-category {
   width: pxTorem(160px);
   background-color: $bg-color;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .m-shop-good-container {
@@ -723,15 +386,6 @@ export default {
   display: block;
   padding: pxTorem(30px) pxTorem(20px);
   font-size: $small-font-size;
-}
-
-.m-category-item>a:after {
-  position: absolute;
-  bottom: 0;
-  left: pxTorem(20px);
-  right: pxTorem(20px);
-  content: "";
-  border-top: 1px solid $border-color;
 }
 
 .m-category-item.active>a {
@@ -750,14 +404,9 @@ export default {
 }
 
 .m-category-title {
-  padding: pxTorem(20px) 0;
+  padding: pxTorem(20px) 0 pxTorem(10px);
   font-size: $small-font-size;
   color: $primary-text-color;
-  border-bottom: 1px solid $border-color;
-}
-
-.m-good-item {
-  border-bottom: 1px solid $border-color;
 }
 
 .m-good-item>a {
@@ -777,15 +426,16 @@ export default {
   padding-left: pxTorem(20px);
 }
 
-.m-good-info p+p {
-  margin-top: pxTorem(5px);
-}
-
 .m-good-title {
   margin-bottom: pxTorem(8px);
   font-size: $subtitle-font-size;
   font-weight: 500;
   color: $primary-text-color;
+}
+
+.m-good-desc {
+  font-size: $small-font-size;
+  color: $secondary-text-color;
 }
 
 .m-good-price-symbol {
@@ -818,7 +468,7 @@ export default {
   border-radius: 50%;
 }
 
-.m-shop-footer-cart .u-icon {
+.m-shop-footer-cart .ydb-icon {
   font-size: pxTorem(50px);
   margin-right: 0;
 }
@@ -853,5 +503,22 @@ export default {
   font-size: $title-font-size;
   border: none;
   border-radius: 0;
+}
+.popup-mask,
+.popup-cart {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+}
+.popup-mask {
+  top: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+.popup-cart {
+  bottom: $footer-height;
+  height: pxTorem(300px);
+  background-color: $bright-color;
 }
 </style>

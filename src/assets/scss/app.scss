@@ -2,42 +2,86 @@
 @import "./base";
 @import "./icon";
 
-.u-label {
-  padding: pxTorem(6px) pxTorem(8px);
-  font-size: $extra-small-font-size;
+.app-header,
+.app-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+
+.app-header {
+  top: 0;
+  height: $header-height;
+}
+
+.app-footer {
+  bottom: 0;
+  height: $footer-height;
+}
+
+.app-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.has-header .app-body {
+  padding-top: $header-height;
+}
+
+.has-footer .app-body {
+  padding-bottom: $footer-height;
+}
+
+.app-action-bar {
+  padding: 0 pxTorem(20px);
+  height: $header-height;
+  font-size: $title-font-size;
+  color: $bright-color;
+  line-height: $header-height;
+  background-color: $primary-color;
+}
+
+.app-action-bar a {
+  color: $bright-color;
+}
+
+.u-tag {
+  padding: pxTorem(4px) pxTorem(6px);
+  font-size: pxTorem(20px);
   border-radius: pxTorem(5px);
 }
 
-.u-label-primary {
+.u-tag-primary {
   color: #fff;
   background: linear-gradient(to right, #6DC3FF, #2894FF);
 }
 
-.u-label-success {
+.u-tag-success {
   color: #fff;
   background: linear-gradient(to right, #54E9A8, #44BF89);
 }
 
-.u-label-warning {
+.u-tag-warning {
   color: #fff;
   background: linear-gradient(to right, #F9C084, #F3A552);
 }
 
-.u-label-danger {
+.u-tag-danger {
   color: #fff;
   background: linear-gradient(to right, #F6A4A5, #F96668);
 }
 
 .u-badge {
   display: inline-block;
-  min-width: pxTorem(40px);
+  min-width: pxTorem(38px);
   padding: pxTorem(8px);
   font-size: $extra-small-font-size;
   color: $bright-color;
   line-height: 1;
   text-align: center;
   background-color: $danger-color;
-  border-radius: pxTorem(24px);
+  border-radius: pxTorem(20px);
 }
 
 .u-btn {
@@ -82,8 +126,8 @@
 .m-stepper-ctrl {
   position: absolute;
   top: 0;
-  width: pxTorem(38px);
-  height: pxTorem(38px);
+  width: pxTorem(40px);
+  height: pxTorem(40px);
   font-size: $base-font-size;
   color: $bright-color;
   text-align: center;
@@ -99,7 +143,7 @@
   top: 50%;
   left: 50%;
   content: "";
-  width: pxTorem(18px);
+  width: pxTorem(20px);
   height: pxTorem(4px);
   background-color: $bright-color;
   transform: translate(-50%, -50%);
@@ -110,7 +154,7 @@
   top: 50%;
   left: 50%;
   content: "";
-  height: pxTorem(18px);
+  height: pxTorem(20px);
   width: pxTorem(4px);
   background-color: $bright-color;
   transform: translate(-50%, -50%);
@@ -125,9 +169,9 @@
 }
 
 .m-stepper-input {
-  width: pxTorem(130px);
+  width: pxTorem(120px);
   padding: 0 pxTorem(40px);
-  height: pxTorem(38px);
+  height: pxTorem(40px);
   font-size: $small-font-size;
   color: $base-text-color;
   text-align: center;
@@ -139,54 +183,6 @@
 .m-stepper-input::-webkit-outer-spin-button,
 .m-stepper-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-}
-
-.app {
-  min-height: 100%;
-  font-size: $base-font-size;
-  font-family: $base-font-family;
-  line-height: $base-line-height;
-  background-color: $bg-color;
-}
-
-.app-header,
-.app-footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 9;
-}
-
-.app-header {
-  top: 0;
-  height: $header-height;
-}
-
-.app-footer {
-  bottom: 0;
-  height: $footer-height;
-}
-
-.app-body {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.has-header .app-body {
-  padding-top: $header-height;
-}
-
-.has-footer .app-body {
-  padding-bottom: $footer-height;
-}
-
-.app-action-bar {
-  padding: 0 pxTorem(20px);
-  height: $header-height;
-  font-size: $title-font-size;
-  color: $bright-color;
-  line-height: $header-height;
-  background-color: $primary-color;
 }
 
 .m-shop-item {
@@ -206,7 +202,7 @@
 
 .m-shop-info p,
 .m-shop-activity p {
-  margin-bottom: pxTorem(10px);
+  margin-bottom: pxTorem(8px);
 }
 
 .m-shop-logo {
@@ -216,32 +212,32 @@
 }
 
 .m-shop-name {
-  margin-bottom: pxTorem(10px);
+  margin-bottom: pxTorem(6px);
   font-size: $title-font-size;
   color: $primary-text-color;
 }
 
 .m-shop-address {
-  display: inline-block;
   max-width: pxTorem(460px);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.m-shop-address>.u-icon {
+.m-shop-address>.ydb-icon {
   color: $primary-color;
 }
 
 .m-shop-activity {
+  margin-top: pxTorem(10px);
   padding: pxTorem(20px) 0;
-  color: #999;
+  font-size: $small-font-size;
 }
 
 .m-shop-activity p:last-child {
   margin-bottom: 0;
 }
 
-.m-shop-activity .u-label {
+.m-shop-activity .u-tag {
   margin-right: pxTorem(10px);
 }
