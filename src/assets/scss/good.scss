@@ -1,0 +1,38 @@
+@import './variable';
+
+.ydb-good-item>a {
+  position: relative;
+  display: flex;
+  padding: pxTorem(20px) 0;
+}
+
+.ydb-good-pic {
+  width: pxTorem(120px);
+  height: pxTorem(120px);
+  border-radius: pxTorem(5px);
+}
+
+.ydb-good-info {
+  flex: 1 1 auto;
+  padding-left: pxTorem(20px);
+}
+
+.ydb-good-title {
+  margin-bottom: pxTorem(8px);
+  font-size: $subtitle-font-size;
+  font-weight: 500;
+  color: $primary-text-color;
+}
+
+.ydb-good-desc {
+  font-size: $small-font-size;
+  color: $secondary-text-color;
+}
+
+.ydb-good-price-symbol {
+  font-size: $extra-small-font-size;
+}
+
+.ydb-good-price {
+  font-size: $title-font-size;
+}

@@ -1,24 +1,24 @@
 <template>
-  <div class="app">
-    <div class="app-action-bar">
+  <div class="ydb">
+    <div class="ydb-action-bar">
       <router-link :to="{ name: 'position'}">
         <span class="ydb-icon ydb-icon-map"></span>郡原公元里<span class="ydb-icon ydb-icon-more" style="margin-left: .12rem;"></span>
       </router-link>
     </div>
-    <section class="app-body">
-      <div class="m-shop">
-        <ul class="m-shop-list">
-          <li class="m-shop-item" v-for="shop in shopList" :key="shop.id">
+    <section class="ydb-body">
+      <div class="ydb-shop">
+        <ul class="ydb-shop-list">
+          <li class="ydb-shop-item" v-for="shop in shopList" :key="shop.id">
             <router-link :to="{ name: 'shop', params: { id: shop.id }}">
-              <img class="m-shop-logo" :src="shop.logo" :alt="shop.name">
-              <div class="m-shop-info">
-                <h2 class="m-shop-name">{{shop.name}}</h2>
-                <p><span class="u-tag u-tag-primary">{{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</span></p>
-                <p class="ydb-clearfix"><span class="m-shop-address ydb-fl"><span class="ydb-icon ydb-icon-map"></span>{{shop.address}}</span><span class="ydb-fr">{{shop.distance}}km</span></p>
-                <div class="m-shop-activity">
-                  <p><span class="u-tag u-tag-danger">减</span>满31减30，满93减59，满140减88</p>
-                  <p><span class="u-tag u-tag-warning">券</span>下单领取随机面额优惠券</p>
-                  <p><span class="u-tag u-tag-success">新</span>门店新客立减1元</p>
+              <img class="ydb-shop-logo" :src="shop.logo" :alt="shop.name">
+              <div class="ydb-shop-info">
+                <h2 class="ydb-shop-name">{{shop.name}}</h2>
+                <p><span class="ydb-tag ydb-tag-primary">{{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</span></p>
+                <p class="ydb-clearfix"><span class="ydb-shop-address ydb-fl"><span class="ydb-icon ydb-icon-map"></span>{{shop.address}}</span><span class="ydb-fr">{{shop.distance}}km</span></p>
+                <div class="ydb-shop-activity">
+                  <p><span class="ydb-tag ydb-tag-danger">减</span>满31减30，满93减59，满140减88</p>
+                  <p><span class="ydb-tag ydb-tag-warning">券</span>下单领取随机面额优惠券</p>
+                  <p><span class="ydb-tag ydb-tag-success">新</span>门店新客立减1元</p>
                 </div>
               </div>
             </router-link>
@@ -146,7 +146,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.m-shop-activity {
+.ydb-shop-activity {
   padding: 0;
 }
 </style>

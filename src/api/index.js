@@ -1,4 +1,4 @@
-import $http from '@/util/http.js'
+import $http from '@/utils/http'
 
 function getUserInfo (id) {
   return $http.get('getUserInfo?id=' + id)

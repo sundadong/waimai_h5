@@ -3,15 +3,11 @@
 import Vue from 'vue'
 import App from '@/App'
 import router from '@/router'
-import Toast from '@/components/toast'
-import Http from '@/util/http'
+import Http from '@/utils/http'
 
-Vue.use(Toast)
 Vue.prototype.$http = Http
 
 Vue.config.productionTip = false
-
-localStorage.setItem('access_token', '1249fijsdanr')
 
 /* eslint-disable no-new */
 const app = new Vue({

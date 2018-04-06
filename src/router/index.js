@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import * as Util from '@/util/util'
+import * as Util from '@/utils/util'
 import Home from '@/pages/Home'
 import position from './position'
 import shop from './shop'

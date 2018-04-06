@@ -1,61 +1,61 @@
 <template>
-  <div class="app" style="background-color: #fff;">
-    <section class="app-body" ref="appBody" @scroll.passive="scrollGood">
-      <div class="m-shop-item" ref="shopHeader">
-        <div class="m-shop-mask">
-          <img class="m-shop-bg" :src="shop.logo">
+  <div class="ydb" style="background-color: #fff;">
+    <section class="ydb-body" ref="ydbBody" @scroll.passive="scrollGood">
+      <div class="ydb-shop-item" ref="shopHeader">
+        <div class="ydb-shop-mask">
+          <img class="ydb-shop-bg" :src="shop.logo">
         </div>
-        <div class="m-shop-box" @click="showToast">
-          <img class="m-shop-logo" :src="shop.logo">
-          <div class="m-shop-info">
-            <h2 class="m-shop-name">{{shop.name}}</h2>
+        <div class="ydb-shop-box" @click="showToast">
+          <img class="ydb-shop-logo" :src="shop.logo">
+          <div class="ydb-shop-info">
+            <h2 class="ydb-shop-name">{{shop.name}}</h2>
             <p style="color: #475669;">月销{{shop.volume}}  {{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</p>
-            <p class="m-shop-notice ydb-text-ellipsis" style="margin-bottom: 0;">公告：{{shop.notice}}</p>
-            <div class="m-shop-activity">
-              <span class="m-shop-activity-more">3个活动 <span class="ydb-icon ydb-icon-more"></span></span>
-              <p><span class="u-tag u-tag-danger">减</span>满31减30，满93减59，满140减88</p>
-              <p><span class="u-tag u-tag-warning">券</span>下单领取随机面额优惠券</p>
-              <p><span class="u-tag u-tag-success">新</span>门店新客立减1元</p>
+            <p class="ydb-shop-notice ydb-text-ellipsis" style="margin-bottom: 0;">公告：{{shop.notice}}</p>
+            <div class="ydb-shop-activity">
+              <span class="ydb-shop-activity-more">3个活动 <span class="ydb-icon ydb-icon-more"></span></span>
+              <p><span class="ydb-tag ydb-tag-danger">减</span>满31减30，满93减59，满140减88</p>
+              <p><span class="ydb-tag ydb-tag-warning">券</span>下单领取随机面额优惠券</p>
+              <p><span class="ydb-tag ydb-tag-success">新</span>门店新客立减1元</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="m-shop-nav-box">
-        <div class="m-shop-nav" ref="shopNav">
-          <a class="m-shop-nav-item" :class="{active: type === 'good'}" href="javascript:;" @click="type = 'good'">商品</a>
-          <a class="m-shop-nav-item" :class="{active: type === 'evaluation'}" href="javascript:;" @click="type = 'evaluation'">评价</a>
-          <a class="m-shop-nav-item" :class="{active: type === 'info'}" href="javascript:;" @click="type = 'info'">商家</a>
+      <div class="ydb-shop-nav-box">
+        <div class="ydb-shop-nav" ref="shopNav">
+          <a class="ydb-shop-nav-item" :class="{active: type === 'good'}" href="javascript:;" @click="type = 'good'">商品</a>
+          <a class="ydb-shop-nav-item" :class="{active: type === 'evaluation'}" href="javascript:;" @click="type = 'evaluation'">评价</a>
+          <a class="ydb-shop-nav-item" :class="{active: type === 'info'}" href="javascript:;" @click="type = 'info'">商家</a>
         </div>
       </div>
-      <div class="m-shop-main" ref="shopMain">
-        <div class="m-shop-good" v-show="type === 'good'">
-          <ul class="m-category-list m-shop-good-category" ref="goodCate">
-            <li v-for="cate in cates" :key="cate.id" :data-id="cate.id" class="m-category-item" :class="{active: curCate === cate.id}" ref="cateItem" @click="selectedCate(cate.id)">
+      <div class="ydb-shop-main" ref="shopMain">
+        <div class="ydb-shop-good" v-show="type === 'good'">
+          <ul class="ydb-category-list ydb-shop-good-category" ref="goodCate">
+            <li v-for="cate in cates" :key="cate.id" :data-id="cate.id" class="ydb-category-item" :class="{active: curCate === cate.id}" ref="cateItem" @click="selectedCate(cate.id)">
               <a href="javascript:;">{{cate.name}}
-                <span v-show="cate.total > 0" class="u-badge">{{cate.total}}</span>
+                <span v-show="cate.total > 0" class="ydb-badge">{{cate.total}}</span>
               </a>
             </li>
           </ul>
-          <div class="m-shop-good-container" ref="goodContainer">
+          <div class="ydb-shop-good-container" ref="goodContainer">
             <div v-for="cate in cates" :key="cate.id" ref="goodItem">
-              <h2 class="m-category-title" :data-id="cate.id">{{cate.name}}</h2>
-              <ul class="m-good-list">
-                <li class="m-good-item" v-for="good in cate.goods" :key="good.id">
+              <h2 class="ydb-category-title" :data-id="cate.id">{{cate.name}}</h2>
+              <ul class="ydb-good-list">
+                <li class="ydb-good-item" v-for="good in cate.goods" :key="good.id">
                   <a href="javascript:;">
-                    <img class="m-good-pic" :src="good.pic" :alt="good.title">
-                    <div class="m-good-info">
-                      <h3 class="m-good-title">{{good.title}}</h3>
-                      <p class="m-good-desc">{{good.desc}}</p>
+                    <img class="ydb-good-pic" :src="good.pic" :alt="good.title">
+                    <div class="ydb-good-info">
+                      <h3 class="ydb-good-title">{{good.title}}</h3>
+                      <p class="ydb-good-desc">{{good.desc}}</p>
                       <p>月销{{good.volume}}  好评率{{good.praiseRate}}</p>
                       <p class="ydb-clearfix">
                         <span class="ydb-fl ydb-text-danger">
-                          <span class="m-good-price-symbol">¥</span>
-                          <span class="m-good-price">{{good.price}}</span>
+                          <span class="ydb-good-price-symbol">¥</span>
+                          <span class="ydb-good-price">{{good.price}}</span>
                         </span>
-                        <span class="m-stepper ydb-fr">
-                          <button v-if="good.number > 0" class="m-stepper-ctrl m-stepper-minus" @click="minusGood(cate.id, good.id)"><span>-</span></button>
-                          <input v-if="good.number > 0" class="m-stepper-input" type="number" v-model="good.number" readonly>
-                          <button class="m-stepper-ctrl m-stepper-plus" @click="plusGood(cate.id, good.id)"><span>+</span></button>
+                        <span class="ydb-stepper ydb-fr">
+                          <button v-if="good.number > 0" class="ydb-stepper-minus" @click="minusGood(cate.id, good.id)"><span>-</span></button>
+                          <input v-if="good.number > 0" class="ydb-stepper-input" type="number" v-model="good.number" readonly>
+                          <button class="ydb-stepper-plus" @click="plusGood(cate.id, good.id)"><span>+</span></button>
                         </span>
                       </p>
                     </div>
@@ -65,27 +65,27 @@
             </div>
           </div>
           <transition-group name="slide" tag="div">
-            <div v-show="isShowCart" class="popup-mask" key="mask" @click="isShowCart = !isShowCart"></div>
-            <div v-show="isShowCart" class="popup-cart" key="cart"></div>
+            <div v-show="isShowCart" class="ydb-popup-mask" key="mask" @click="isShowCart = !isShowCart"></div>
+            <div v-show="isShowCart" class="ydb-popup-cart" key="cart"></div>
           </transition-group>
-          <footer class="app-footer">
-            <div class="m-shop-footer">
-              <a class="m-shop-footer-cart" href="javascript:;" @click="isShowCart = !isShowCart">
+          <footer class="ydb-footer">
+            <div class="ydb-shop-footer">
+              <a class="ydb-shop-footer-cart" href="javascript:;" @click="isShowCart = !isShowCart">
                 <span class="ydb-icon ydb-icon-cart"></span>
-                <span v-show="totalNumber > 0" class="u-badge">{{totalNumber}}</span>
+                <span v-show="totalNumber > 0" class="ydb-badge">{{totalNumber}}</span>
               </a>
-              <div class="m-shop-footer-info">
-                <p class="m-shop-footer-price">¥ 251.8</p>
-                <p class="m-shop-footer-delivery ydb-text-muted">另需配送费5元</p>
+              <div class="ydb-shop-footer-info">
+                <p class="ydb-shop-footer-price">¥ 251.8</p>
+                <p class="ydb-shop-footer-delivery ydb-text-muted">另需配送费5元</p>
               </div>
-              <button class="u-btn u-btn-primary u-btn-lg btn-pay" href="javascript:;">立即结算</button>
+              <button class="ydb-btn ydb-btn-primary ydb-btn-lg ydb-btn-pay" href="javascript:;">立即结算</button>
             </div>
           </footer>
         </div>
-        <div class="m-shop-evaluation" v-show="type === 'evaluation'">
+        <div class="ydb-shop-evaluation" v-show="type === 'evaluation'">
           评价
         </div>
-        <div class="m-shop-info" v-show="type === 'info'">
+        <div class="ydb-shop-info" v-show="type === 'info'">
           商家信息
         </div>
       </div>
@@ -96,12 +96,13 @@
 <script>
 import logo from '../assets/images/logo.png'
 import cateGoods from '../data/cateGoods.json'
+import Toast from '@/components/Toast'
 
 export default {
   name: 'shop',
   data () {
     return {
-      appHeight: 0,
+      ydbHeight: 0,
       shopNavHeight: 0,
       shopNavTop: 0,
       shopMainTop: 0,
@@ -157,7 +158,7 @@ export default {
     getHeight () {
       const _this = this
 
-      _this.appHeight = document.body.offsetHeight
+      _this.ydbHeight = document.body.offsetHeight
       _this.shopNavHeight = _this.$refs.shopNav.offsetHeight
 
       _this.shopNavTop = _this.$refs.shopNav.offsetTop
@@ -166,11 +167,11 @@ export default {
         _this.goodItemTop.push(ele.offsetTop)
       })
 
-      _this.$refs.shopMain.style.minHeight = _this.appHeight - _this.shopNavHeight + 'px'
-      _this.$refs.appBody.style.height = _this.appHeight + 'px'
+      _this.$refs.shopMain.style.minHeight = _this.ydbHeight - _this.shopNavHeight + 'px'
+      _this.$refs.ydbBody.style.height = _this.ydbHeight + 'px'
     },
     scrollGood () {
-      const scrollTop = this.$refs.appBody.scrollTop
+      const scrollTop = this.$refs.ydbBody.scrollTop
 
       if (scrollTop >= this.shopNavTop && this.type === 'good') {
         this.$refs.shopNav.classList.add('fixed')
@@ -200,7 +201,7 @@ export default {
       this.curCate = cateId
       let scrollTop = this.$refs.goodItem[cateId - 1].offsetTop - this.shopNavHeight + 2
       scrollTop = scrollTop <= this.shopNavTop ? this.shopNavTop : scrollTop
-      this.$refs.appBody.scrollTop = scrollTop
+      this.$refs.ydbBody.scrollTop = scrollTop
     },
     minusGood (cateId, goodId) {
       this.cates[cateId - 1].goods[goodId - 1].number--
@@ -209,9 +210,9 @@ export default {
       this.cates[cateId - 1].goods[goodId - 1].number++
     },
     showToast () {
-      this.$toast({
-        message: 'hi, 这是提示！',
-        duration: 0
+      Toast({
+        message: '操作成功',
+        iconClass: 'ydb-icon ydb-icon-success'
       })
     }
   }
@@ -221,18 +222,18 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/variable';
 
-.m-shop-item {
+.ydb-shop-item {
   position: relative;
   margin-bottom: 0;
 }
 
-.m-shop-mask {
+.ydb-shop-mask {
   position: relative;
   height: pxTorem(200px);
   overflow: hidden;
 }
 
-.m-shop-bg {
+.ydb-shop-bg {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -242,26 +243,26 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.m-shop-box {
+.ydb-shop-box {
   position: relative;
   padding: 0 pxTorem(80px);
   margin-top: pxTorem(-120px);
   text-align: center;
 }
 
-.m-shop-name {
+.ydb-shop-name {
   font-size: pxTorem(38px);
   color: $black-color;
 }
 
-.m-shop-logo {
+.ydb-shop-logo {
   width: pxTorem(160px);
   height: pxTorem(160px);
   background-color: $bright-color;
   border-radius: pxTorem(6px);
 }
 
-.m-shop-activity {
+.ydb-shop-activity {
   position: relative;
   height: pxTorem(50px);
   margin-top: 0;
@@ -271,33 +272,33 @@ export default {
   overflow: hidden;
 }
 
-.m-shop-activity p {
+.ydb-shop-activity p {
   margin-bottom: pxTorem(10px);
 }
 
-.m-shop-activity-more {
+.ydb-shop-activity-more {
   position: absolute;
   right: 0;
   color: $secondary-text-color;
 }
 
-.m-shop-notice {
+.ydb-shop-notice {
   font-size: $extra-small-font-size;
   color: $secondary-text-color;
 }
 
-.m-shop-nav-box,
-.m-shop-nav {
+.ydb-shop-nav-box,
+.ydb-shop-nav {
   height: pxTorem(80px);
 }
 
-.m-shop-nav {
+.ydb-shop-nav {
   position: relative;
   display: flex;
   background-color: $bright-color;
 }
 
-.m-shop-nav:after {
+.ydb-shop-nav:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -311,7 +312,7 @@ export default {
   border-bottom: 1px solid $border-color;
 }
 
-.m-shop-nav.fixed {
+.ydb-shop-nav.fixed {
   position: fixed;
   top: 0;
   right: 0;
@@ -319,7 +320,7 @@ export default {
   z-index: 9;
 }
 
-.m-shop-nav-item {
+.ydb-shop-nav-item {
   position: relative;
   flex: 1 1 auto;
   height: pxTorem(80px);
@@ -327,11 +328,11 @@ export default {
   text-align: center;
 }
 
-.m-shop-nav-item.active {
+.ydb-shop-nav-item.active {
   color: $primary-color;
 }
 
-.m-shop-nav-item:after {
+.ydb-shop-nav-item:after {
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -341,20 +342,20 @@ export default {
   transform: translateX(-50%);
 }
 
-.m-shop-nav-item.active:after {
+.ydb-shop-nav-item.active:after {
   border-color: $primary-color;
 }
 
-.m-shop-good {
+.ydb-shop-good {
   display: flex;
   height: 100%;
 }
 
-.m-shop-main {
+.ydb-shop-main {
   background-color: $bright-color;
 }
 
-.m-shop-main.fixed .m-shop-good-category {
+.ydb-shop-main.fixed .ydb-shop-good-category {
   position: fixed;
   top: pxTorem(80px);
   left: 0;
@@ -362,93 +363,56 @@ export default {
   z-index: 9;
 }
 
-.m-shop-main.fixed .m-shop-good-container {
+.ydb-shop-main.fixed .ydb-shop-good-container {
   margin-left: pxTorem(160px);
 }
 
-.m-shop-good-container {
+.ydb-shop-good-container {
   padding-bottom: pxTorem(98px);
 }
 
-.m-shop-good-category {
+.ydb-shop-good-category {
   width: pxTorem(160px);
   background-color: $bg-color;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-.m-shop-good-container {
+.ydb-shop-good-container {
   flex: 1 1 auto;
   padding-left: pxTorem(20px);
   padding-right: pxTorem(20px);
 }
 
-.m-category-item>a {
+.ydb-category-item>a {
   position: relative;
   display: block;
   padding: pxTorem(30px) pxTorem(20px);
   font-size: $small-font-size;
 }
 
-.m-category-item.active>a {
+.ydb-category-item.active>a {
   color: $primary-text-color;
   background-color: $bright-color;
 }
 
-.m-category-item.active>a:after {
+.ydb-category-item.active>a:after {
   border-color: transparent;
 }
 
-.m-category-item .u-badge {
+.ydb-category-item .ydb-badge {
   position: absolute;
   right: pxTorem(15px);
   top: pxTorem(15px);
 }
 
-.m-category-title {
+.ydb-category-title {
   padding: pxTorem(20px) 0 pxTorem(10px);
   font-size: $small-font-size;
   color: $primary-text-color;
 }
 
-.m-good-item>a {
-  position: relative;
-  display: flex;
-  padding: pxTorem(20px) 0;
-}
-
-.m-good-pic {
-  width: pxTorem(120px);
-  height: pxTorem(120px);
-  border-radius: pxTorem(5px);
-}
-
-.m-good-info {
-  flex: 1 1 auto;
-  padding-left: pxTorem(20px);
-}
-
-.m-good-title {
-  margin-bottom: pxTorem(8px);
-  font-size: $subtitle-font-size;
-  font-weight: 500;
-  color: $primary-text-color;
-}
-
-.m-good-desc {
-  font-size: $small-font-size;
-  color: $secondary-text-color;
-}
-
-.m-good-price-symbol {
-  font-size: $extra-small-font-size;
-}
-
-.m-good-price {
-  font-size: $title-font-size;
-}
-
-.m-shop-footer {
+.ydb-shop-footer {
   display: flex;
   height: 100%;
   align-items: center;
@@ -456,7 +420,7 @@ export default {
   background-color: #00040A;
 }
 
-.m-shop-footer-cart {
+.ydb-shop-footer-cart {
   position: absolute;
   left: pxTorem(36px);
   bottom: pxTorem(22px);
@@ -470,55 +434,48 @@ export default {
   border-radius: 50%;
 }
 
-.m-shop-footer-cart .ydb-icon {
+.ydb-shop-footer-cart .ydb-icon {
   font-size: pxTorem(50px);
   margin-right: 0;
 }
 
-.m-shop-footer-cart .u-badge {
+.ydb-shop-footer-cart .ydb-badge {
   position: absolute;
   top: 0;
   right: 0;
   transform: translate(35%, -40%);
 }
 
-.m-shop-footer-info {
+.ydb-shop-footer-info {
   flex: 1 1 auto;
   padding-left: pxTorem(150px);
 }
 
-.m-shop-footer-price {
+.ydb-shop-footer-price {
   font-size: $subtitle-font-size;
 }
 
-.m-shop-footer-delivery {
+.ydb-shop-footer-delivery {
   font-size: $extra-small-font-size;
 }
 
-.m-good-item .m-stepper {
+.ydb-good-item .ydb-stepper {
   margin-top: pxTorem(6px);
 }
 
-.btn-pay {
-  width: pxTorem(248px);
-  height: pxTorem(98px);
-  font-size: $title-font-size;
-  border: none;
-  border-radius: 0;
-}
-.popup-mask,
-.popup-cart {
+.ydb-popup-mask,
+.ydb-popup-cart {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 9;
 }
-.popup-mask {
+.ydb-popup-mask {
   top: 0;
   background-color: rgba(0, 0, 0, .5);
 }
-.popup-cart {
+.ydb-popup-cart {
   bottom: $footer-height;
   height: pxTorem(300px);
   background-color: $bright-color;
@@ -527,14 +484,14 @@ export default {
 .slide-enter-active {
   transition: all .3s;
 }
-.slide-enter-active.popup-mask {
+.slide-enter-active.ydb-popup-mask {
   transition: opacity .1s;
 }
 
 .slide-enter {
   transform: translateY(100%);
 }
-.slide-enter.popup-mask {
+.slide-enter.ydb-popup-mask {
   opacity: 0;
 }
 </style>

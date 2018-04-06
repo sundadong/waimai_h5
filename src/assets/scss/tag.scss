@@ -1,0 +1,29 @@
+@import "./variable";
+
+.ydb-tag {
+  display: inline-block;
+  padding: pxTorem(6px);
+  font-size: pxTorem(20px);
+  line-height: 1;
+  border-radius: pxTorem(5px);
+}
+
+.ydb-tag-primary {
+  color: #fff;
+  background: linear-gradient(to right, #6DC3FF, #2894FF);
+}
+
+.ydb-tag-success {
+  color: #fff;
+  background: linear-gradient(to right, #54E9A8, #44BF89);
+}
+
+.ydb-tag-warning {
+  color: #fff;
+  background: linear-gradient(to right, #F9C084, #F3A552);
+}
+
+.ydb-tag-danger {
+  color: #fff;
+  background: linear-gradient(to right, #F6A4A5, #F96668);
+}

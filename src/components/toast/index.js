@@ -1,44 +1,61 @@
+import Vue from 'vue'
 import ToastComponent from './index.vue'
 
-let Toast = {}
+const ToastConstructor = Vue.extend(ToastComponent)
+let toastPool = []
 
-Toast.install = function (Vue) {
-  const ToastConstructor = Vue.extend(ToastComponent)
-
-  ToastConstructor.prototype.close = function () {
-    this.visible = false
-    clearTimeout(this.timer)
-    this.$el.addEventListener('transitionend', function (e) {
-      e.target && e.target.parentNode && e.target.parentNode.removeChild(e.target)
-    })
+let getAnInstance = () => {
+  if (toastPool.length > 0) {
+    let instance = toastPool[0]
+    toastPool.splice(0, 1)
+    return instance
   }
+  return new ToastConstructor({
+    el: document.createElement('div')
+  })
+}
 
-  Vue.prototype.$toast = function (options = {}) {
-    let duration = options.duration || 3000
-    let instance
+let returnAnInstance = instance => {
+  if (instance) {
+    toastPool.push(instance)
+  }
+}
 
-    if (typeof options === 'string') {
-      options = {
-        message: options
-      }
-    }
+let removeDom = event => {
+  if (event.target.parentNode) {
+    event.target.parentNode.removeChild(event.target)
+  }
+}
 
-    instance = new ToastConstructor({
-      data: options
-    })
+ToastConstructor.prototype.close = function () {
+  this.visible = false
+  this.$el.addEventListener('transitionend', removeDom)
+  this.closed = true
+  returnAnInstance(this)
+}
 
-    instance.vm = instance.$mount()
+let Toast = (options = {}) => {
+  let duration = options.duration || 3000
 
-    instance.vm.visible = true
+  let instance = getAnInstance()
+  instance.closed = false
+  clearTimeout(instance.timer)
+  instance.message = typeof options === 'string' ? options : options.message
+  instance.className = options.className || ''
+  instance.iconClass = options.iconClass || ''
+  instance.position = options.position || 'middle'
 
-    document.body.appendChild(instance.vm.$el)
-
-    instance.timer = setTimeout(function () {
+  document.body.appendChild(instance.$el)
+  Vue.nextTick(() => {
+    instance.visible = true
+    instance.$el.removeEventListener('transitionend', removeDom)
+    ~duration && (instance.timer = setTimeout(function () {
+      if (instance.closed) return
       instance.close()
-    }, duration)
+    }, duration))
+  })
 
-    return instance.vm
-  }
+  return instance
 }
 
 export default Toast

@@ -1,0 +1,33 @@
+@import './variable';
+
+.ydb-clearfix:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+
+.ydb-fl {
+  float: left;
+}
+
+.ydb-fr {
+  float: right;
+}
+
+.ydb-text-muted {
+  color: $secondary-text-color;
+}
+
+.ydb-text-primary {
+  color: $primary-color;
+}
+
+.ydb-text-danger {
+  color: $danger-color;
+}
+
+.ydb-text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

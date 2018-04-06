@@ -1,0 +1,43 @@
+@import "./variable";
+
+.ydb-btn {
+  display: inline-block;
+  padding: pxTorem(10px) pxTorem(20px);
+  font-size: $base-font-size;
+  text-align: center;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: pxTorem(6px);
+  box-shadow: none;
+}
+
+.ydb-btn-sm {
+  font-size: $small-font-size;
+  padding: pxTorem(6px) pxTorem(10px);
+}
+
+.ydb-btn-lg {
+  font-size: $subtitle-font-size;
+  padding: pxTorem(16px) pxTorem(30px);
+}
+
+.ydb-btn-block {
+  display: block;
+}
+
+.ydb-btn-round {
+  border-radius: 50%;
+}
+
+.ydb-btn-primary {
+  color: #fff;
+  background: linear-gradient(to right, #6DC3FF, #2894FF);
+}
+
+.ydb-btn-pay {
+  width: pxTorem(248px);
+  height: pxTorem(98px);
+  font-size: $title-font-size;
+  border: none;
+  border-radius: 0;
+}
