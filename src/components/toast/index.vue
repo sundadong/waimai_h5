@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="zoom">
     <div v-show="visible" class="toast" role="toast">
       {{message}}
     </div>
@@ -36,7 +36,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .2s;
+  transition: opacity .3s;
 }
 
 .fade-enter,
@@ -44,16 +44,24 @@ export default {
   opacity: 0;
 }
 
-.zoom-enter-active {
-  transition: all .2s ease-in;
-}
-
+.zoom-enter-active,
 .zoom-leave-active {
-  transition: all .1s ease-out;
+  transition: all .3s;
 }
 .zoom-enter,
 .zoom-leave-to {
-  transform: scale(0, 0);
+  transform: translate(-50%, -50%) scale(.5, .5);
   opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all .3s;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 100%);
 }
 </style>

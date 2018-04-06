@@ -1,6 +1,6 @@
 <template>
   <div class="app" style="background-color: #fff;">
-    <section class="app-body" ref="appBody" @scroll="scrollGood">
+    <section class="app-body" ref="appBody" @scroll.passive="scrollGood">
       <div class="m-shop-item" ref="shopHeader">
         <div class="m-shop-mask">
           <img class="m-shop-bg" :src="shop.logo">
@@ -64,8 +64,10 @@
               </ul>
             </div>
           </div>
-          <div v-show="isShowCart" class="popup-mask"></div>
-          <div v-show="isShowCart" class="popup-cart"></div>
+          <transition-group name="slide" tag="div">
+            <div v-show="isShowCart" class="popup-mask" key="mask" @click="isShowCart = !isShowCart"></div>
+            <div v-show="isShowCart" class="popup-cart" key="cart"></div>
+          </transition-group>
           <footer class="app-footer">
             <div class="m-shop-footer">
               <a class="m-shop-footer-cart" href="javascript:;" @click="isShowCart = !isShowCart">
@@ -141,8 +143,8 @@ export default {
     }
   },
   mounted () {
+    this.getCate()
     this.$nextTick(function () {
-      this.getCate()
       this.getHeight()
     })
 
@@ -160,7 +162,7 @@ export default {
 
       _this.shopNavTop = _this.$refs.shopNav.offsetTop
       _this.shopMainTop = _this.$refs.shopMain.offsetTop
-      _this.$refs.goodItem && _this.$refs.goodItem.forEach(function (ele, index) {
+      _this.$refs.goodItem.forEach(function (ele, index) {
         _this.goodItemTop.push(ele.offsetTop)
       })
 
@@ -520,5 +522,19 @@ export default {
   bottom: $footer-height;
   height: pxTorem(300px);
   background-color: $bright-color;
+}
+
+.slide-enter-active {
+  transition: all .3s;
+}
+.slide-enter-active.popup-mask {
+  transition: opacity .1s;
+}
+
+.slide-enter {
+  transform: translateY(100%);
+}
+.slide-enter.popup-mask {
+  opacity: 0;
 }
 </style>

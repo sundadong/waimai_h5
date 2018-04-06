@@ -15,6 +15,7 @@ Toast.install = function (Vue) {
 
   Vue.prototype.$toast = function (options = {}) {
     let duration = options.duration || 3000
+    let instance
 
     if (typeof options === 'string') {
       options = {
@@ -22,7 +23,7 @@ Toast.install = function (Vue) {
       }
     }
 
-    let instance = new ToastConstructor({
+    instance = new ToastConstructor({
       data: options
     })
 
