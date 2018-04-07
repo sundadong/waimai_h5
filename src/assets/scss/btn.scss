@@ -31,7 +31,22 @@
 
 .ydb-btn-primary {
   color: #fff;
-  background: linear-gradient(to right, #6DC3FF, #2894FF);
+  background: $primary-bg;
+}
+
+.ydb-btn-success {
+  color: #fff;
+  background: $success-bg;
+}
+
+.ydb-btn-warning {
+  color: #fff;
+  background: $warning-bg;
+}
+
+.ydb-btn-danger {
+  color: #fff;
+  background: $danger-bg;
 }
 
 .ydb-btn-pay {
