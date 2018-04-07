@@ -378,6 +378,10 @@ export default {
   overflow-y: auto;
 }
 
+.ydb-shop-good-category::-webkit-scrollbar{
+  display: none;
+}
+
 .ydb-shop-good-container {
   flex: 1 1 auto;
   padding-left: pxTorem(20px);
@@ -417,7 +421,7 @@ export default {
   height: 100%;
   align-items: center;
   color: $bright-color;
-  background-color: #00040A;
+  background-color: rgba(0, 0, 0, .9);
 }
 
 .ydb-shop-footer-cart {
@@ -449,10 +453,12 @@ export default {
 .ydb-shop-footer-info {
   flex: 1 1 auto;
   padding-left: pxTorem(150px);
+  line-height: 1;
 }
 
 .ydb-shop-footer-price {
-  font-size: $subtitle-font-size;
+  margin-bottom: pxTorem(10px);
+  font-size: $title-font-size;
 }
 
 .ydb-shop-footer-delivery {
