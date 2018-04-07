@@ -1,6 +1,6 @@
 <template>
-  <div class="ydb" style="background-color: #fff;">
-    <section class="ydb-body" ref="ydbBody" @scroll.passive="scrollGood">
+  <div class="app" style="background-color: #fff;">
+    <section class="app-body" ref="appBody" @scroll.passive="scrollGood">
       <div class="ydb-shop-item" ref="shopHeader">
         <div class="ydb-shop-mask">
           <img class="ydb-shop-bg" :src="shop.logo">
@@ -9,7 +9,7 @@
           <img class="ydb-shop-logo" :src="shop.logo">
           <div class="ydb-shop-info">
             <h2 class="ydb-shop-name">{{shop.name}}</h2>
-            <p style="color: #475669;">月销{{shop.volume}}  {{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</p>
+            <p>月销{{shop.volume}}  {{shop.deliveryType}}.约{{shop.deliveryTime}}分钟</p>
             <p class="ydb-shop-notice ydb-text-ellipsis" style="margin-bottom: 0;">公告：{{shop.notice}}</p>
             <div class="ydb-shop-activity">
               <span class="ydb-shop-activity-more">3个活动 <span class="ydb-icon ydb-icon-more"></span></span>
@@ -68,7 +68,7 @@
             <div v-show="isShowCart" class="ydb-popup-mask" key="mask" @click="isShowCart = !isShowCart"></div>
             <div v-show="isShowCart" class="ydb-popup-cart" key="cart"></div>
           </transition-group>
-          <footer class="ydb-footer">
+          <footer class="app-footer">
             <div class="ydb-shop-footer">
               <a class="ydb-shop-footer-cart" href="javascript:;" @click="isShowCart = !isShowCart">
                 <span class="ydb-icon ydb-icon-cart"></span>
@@ -102,7 +102,7 @@ export default {
   name: 'shop',
   data () {
     return {
-      ydbHeight: 0,
+      appHeight: 0,
       shopNavHeight: 0,
       shopNavTop: 0,
       shopMainTop: 0,
@@ -158,7 +158,7 @@ export default {
     getHeight () {
       const _this = this
 
-      _this.ydbHeight = document.body.offsetHeight
+      _this.appHeight = document.body.offsetHeight
       _this.shopNavHeight = _this.$refs.shopNav.offsetHeight
 
       _this.shopNavTop = _this.$refs.shopNav.offsetTop
@@ -167,11 +167,11 @@ export default {
         _this.goodItemTop.push(ele.offsetTop)
       })
 
-      _this.$refs.shopMain.style.minHeight = _this.ydbHeight - _this.shopNavHeight + 'px'
-      _this.$refs.ydbBody.style.height = _this.ydbHeight + 'px'
+      _this.$refs.shopMain.style.minHeight = _this.appHeight - _this.shopNavHeight + 'px'
+      _this.$refs.appBody.style.height = _this.appHeight + 'px'
     },
     scrollGood () {
-      const scrollTop = this.$refs.ydbBody.scrollTop
+      const scrollTop = this.$refs.appBody.scrollTop
 
       if (scrollTop >= this.shopNavTop && this.type === 'good') {
         this.$refs.shopNav.classList.add('fixed')
@@ -201,7 +201,7 @@ export default {
       this.curCate = cateId
       let scrollTop = this.$refs.goodItem[cateId - 1].offsetTop - this.shopNavHeight + 2
       scrollTop = scrollTop <= this.shopNavTop ? this.shopNavTop : scrollTop
-      this.$refs.ydbBody.scrollTop = scrollTop
+      this.$refs.appBody.scrollTop = scrollTop
     },
     minusGood (cateId, goodId) {
       this.cates[cateId - 1].goods[goodId - 1].number--
@@ -457,10 +457,6 @@ export default {
 
 .ydb-shop-footer-delivery {
   font-size: $extra-small-font-size;
-}
-
-.ydb-good-item .ydb-stepper {
-  margin-top: pxTorem(6px);
 }
 
 .ydb-popup-mask,

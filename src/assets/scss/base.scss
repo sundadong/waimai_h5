@@ -45,12 +45,12 @@ h6 {
 
 html,
 body,
-.ydb {
+.app {
   height: 100%;
 }
 
 body,
-.ydb {
+.app {
   font-size: $base-font-size;
   font-family: $base-font-family;
   color: $base-text-color;
@@ -59,33 +59,33 @@ body,
   -webkit-font-smoothing: antialiased;
 }
 
-.ydb-header,
-.ydb-footer {
+.app-header,
+.app-footer {
   position: fixed;
   left: 0;
   right: 0;
   z-index: 9;
 }
 
-.ydb-header {
+.app-header {
   top: 0;
   height: $header-height;
 }
 
-.ydb-footer {
+.app-footer {
   bottom: 0;
   height: $footer-height;
 }
 
-.ydb-body {
+.app-body {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-.has-header .ydb-body {
+.has-header .app-body {
   padding-top: $header-height;
 }
 
-.has-footer .ydb-body {
+.has-footer .app-body {
   padding-bottom: $footer-height;
 }

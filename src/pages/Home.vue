@@ -1,11 +1,11 @@
 <template>
-  <div class="ydb">
+  <div class="app">
     <div class="ydb-action-bar">
       <router-link :to="{ name: 'position'}">
         <span class="ydb-icon ydb-icon-map"></span>郡原公元里<span class="ydb-icon ydb-icon-more" style="margin-left: .12rem;"></span>
       </router-link>
     </div>
-    <section class="ydb-body">
+    <section class="app-body">
       <div class="ydb-shop">
         <ul class="ydb-shop-list">
           <li class="ydb-shop-item" v-for="shop in shopList" :key="shop.id">

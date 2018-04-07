@@ -1,15 +1,15 @@
 <template>
   <transition :name="transition">
-    <div v-show="visible" class="toast" :class="customClass">
-      <span v-if="iconClass !== ''" class="toast-icon" :class="iconClass"></span>
-      <span class="toast-text">{{message}}</span>
+    <div v-show="visible" class="ydb-toast" :class="customClass">
+      <span v-if="iconClass !== ''" class="ydb-toast-icon" :class="iconClass"></span>
+      <span class="ydb-toast-text">{{message}}</span>
     </div>
   </transition>
 </template>
 
 <script>
 export default {
-  name: 'toast',
+  name: 'ydb-toast',
   props: {
     message: String,
     className: {
@@ -51,16 +51,8 @@ export default {
     customClass () {
       var classes = []
 
-      switch (this.position) {
-        case 'top':
-          classes.push('is-placetop')
-          break
-        case 'bottom':
-          classes.push('is-placebottom')
-          break
-        default:
-          classes.push('is-placemiddle')
-          break
+      if (this.position) {
+        classes.push('ydb-toast-' + this.position)
       }
 
       if (this.iconClass !== '') {
@@ -78,7 +70,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/variable';
 
-.toast {
+.ydb-toast {
   position: fixed;
   left: 50%;
   z-index: 999;
@@ -94,6 +86,21 @@ export default {
     padding: pxTorem(30px) pxTorem(40px);
   }
 
+  &-#{'top'} {
+    top: pxTorem(60px);
+    transform: translate(-50%, 0);
+  }
+
+  &-#{'bottom'} {
+    bottom: pxTorem(60px);
+    transform: translate(-50%, 0);
+  }
+
+  &-#{'middle'} {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   &-#{'icon'} {
     font-size: pxTorem(60px);
     margin-bottom: pxTorem(20px);
@@ -102,21 +109,6 @@ export default {
   &-#{'text'} {
     display: block;
   }
-}
-
-.is-placetop {
-  top: pxTorem(60px);
-  transform: translate(-50%, 0);
-}
-
-.is-placebottom {
-  bottom: pxTorem(60px);
-  transform: translate(-50%, 0);
-}
-
-.is-placemiddle {
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .fade-enter-active,
