@@ -31,7 +31,6 @@
 
 <script>
 import logo from '../assets/images/logo.png'
-import { getUserInfo, updateUserInfo } from '../api'
 
 export default {
   name: 'home',
@@ -130,17 +129,6 @@ export default {
         }
       ]
     }
-  },
-  created () {
-    getUserInfo(1)
-      .then(res => {
-        console.log(res)
-      })
-    updateUserInfo({
-      name: 'dongge',
-      sex: 1,
-      age: 26
-    })
   }
 }
 </script>

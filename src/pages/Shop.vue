@@ -96,7 +96,6 @@
 <script>
 import logo from '../assets/images/logo.png'
 import cateGoods from '../data/cateGoods.json'
-import Toast from '@/components/Toast'
 
 export default {
   name: 'shop',
@@ -210,7 +209,7 @@ export default {
       this.cates[cateId - 1].goods[goodId - 1].number++
     },
     showToast () {
-      Toast({
+      this.$toast({
         message: '操作成功',
         iconClass: 'ydb-icon ydb-icon-success'
       })
