@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/variable';
+@import "../../assets/scss/variable";
 
 .ydb-toast {
   position: fixed;

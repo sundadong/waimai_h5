@@ -7,6 +7,7 @@
     </div>
     <section class="app-body">
       <div class="ydb-shop">
+        <button class="ydb-btn ydb-btn-primary ydb-btn-block" @click="showModal">显示弹窗</button>
         <ul class="ydb-shop-list">
           <li class="ydb-shop-item" v-for="shop in shopList" :key="shop.id">
             <router-link :to="{ name: 'shop', params: { id: shop.id }}">
@@ -128,6 +129,21 @@ export default {
           address: '浙江省杭州市西湖区郡原公元里7幢6楼'
         }
       ]
+    }
+  },
+  methods: {
+    showModal () {
+      let vm = this
+      this.$dialog({
+        title: '',
+        closeOnClickOverlay: false,
+        content: '确定要删除这个门店吗？',
+        confirmButtonText: '删除',
+        confirmButtonClass: 'ydb-text-danger',
+        confirmButtonCallback () {
+          vm.$toast('你点击了确定')
+        }
+      })
     }
   }
 }

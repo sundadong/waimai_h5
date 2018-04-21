@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import * as Util from '@/utils/util'
+import util from '@/utils/util'
 import Home from '@/pages/Home'
 import position from './position'
 import shop from './shop'
@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     name: 'home',
     meta: {
-      title: '微外卖'
+      title: '门店列表'
     },
     component: Home
   },
@@ -26,7 +26,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
-    Util.setTitle(to.meta.title)
+    util.setTitle(to.meta.title)
   }
   next()
 })

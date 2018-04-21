@@ -1,46 +1,50 @@
 import axios from 'axios'
 import qs from 'qs'
-import * as Util from './util'
+import util from './util'
 
+// 请求基础url
 const baseURL = '/'
 
-const Http = axios.create({
-  baseURL: baseURL, // 因为我本地做了反向代理
+// 创建请求实例
+const http = axios.create({
+  baseURL: baseURL,
   timeout: 10000,
   responseType: 'json',
-  withCredentials: true, // 是否允许带cookie这些
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'Source': 'ydb_h5'
+    'Source': 'ydb_mshop'
   }
 })
 
-Http.interceptors.request.use(config => {
+// 请求拦截
+http.interceptors.request.use(config => {
+  // 请求头添加token
   const token = localStorage.getItem('access_token')
-  // 序列化数据
+  if (token && token.access_token) {
+    config.headers['Access-Toekn'] = token.access_token.value
+  }
+
   if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
-    config.headers.Sign = Util.createSign(config.data)
+    // 请求头添加签名
+    config.headers.Sign = util.createSign(config.data)
+    // 序列化数据
     config.data = qs.stringify(config.data)
   }
-  if (token) {
-    if (config.url.indexOf('?') > -1) {
-      config.url += '&access_token=' + token
-    } else {
-      config.url += '?access_token=' + token
-    }
-  }
+
   return config
 }, error => {
   console.log(error)
-  // return Promise.reject(error)
+  return Promise.reject(error)
 })
 
-Http.interceptors.response.use(res => {
+// 响应拦截
+http.interceptors.response.use(res => {
   console.log(res)
   return res
 }, error => {
   console.log(error.message)
-  // return Promise.reject(error)
+  return Promise.reject(error)
 })
 
-export default Http
+export default http

@@ -5,9 +5,11 @@ import App from '@/App'
 import router from '@/router'
 import Http from '@/utils/http'
 import Toast from '@/components/toast'
+import Dialog from '@/components/dialog'
 
 Vue.prototype.$http = Http
 Vue.prototype.$toast = Toast
+Vue.prototype.$dialog = Dialog
 
 Vue.config.productionTip = false
 

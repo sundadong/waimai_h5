@@ -17,11 +17,11 @@ function createSign (data) {
     })
   }
 
-  dataString += 'ydb_h5'
+  dataString += 'ydb_mshop'
   return md5(dataString)
 }
 
-export {
+export default {
   setTitle,
   createSign
 }
