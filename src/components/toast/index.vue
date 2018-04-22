@@ -73,7 +73,7 @@ export default {
 .ydb-toast {
   position: fixed;
   left: 50%;
-  z-index: 999;
+  z-index: 9999;
   max-width: 80%;
   padding: pxTorem(20px) pxTorem(30px);
   font-size: $base-font-size;

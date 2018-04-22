@@ -3,11 +3,13 @@
     <div v-if="show" class="ydb-modal">
       <div v-if="showOverlay" class="ydb-mask" @click="clickMask"></div>
       <div class="ydb-dialog">
-        <div v-if="title" class="ydb-dialog-header">{{title}}</div>
-        <div class="ydb-dialog-content" v-html="content"></div>
-        <div v-if="showCancelButton || showConfirmButton" class="ydb-dialog-footer">
-          <button v-if="showCancelButton" class="ydb-btn" :class="cancelButtonClass" @click="close">{{cancelButtonText}}</button>
-          <button v-if="showConfirmButton" class="ydb-btn ydb-btn-confirm" :class="confirmButtonClass" @click="confirm">{{confirmButtonText}}</button>
+        <div v-if="title" class="ydb-dialog-hd">
+          <strong class="ydb-dialog-title">{{title}}</strong>
+        </div>
+        <div class="ydb-dialog-bd" v-html="content"></div>
+        <div v-if="showCancelButton || showConfirmButton" class="ydb-dialog-ft">
+          <a v-if="showCancelButton" class="ydb-dialog-btn" :class="cancelButtonClass" href="javascript:;" @click="close">{{cancelButtonText}}</a>
+          <a v-if="showConfirmButton" class="ydb-dialog-btn" :class="confirmButtonClass" href="javascript:;" @click="confirm">{{confirmButtonText}}</a>
         </div>
       </div>
     </div>
@@ -44,7 +46,7 @@ export default {
     },
     cancelButtonClass: {
       type: String,
-      default: ''
+      default: 'ydb-dialog-btn__default'
     },
     showConfirmButton: {
       type: Boolean,
@@ -56,7 +58,7 @@ export default {
     },
     confirmButtonClass: {
       type: String,
-      default: ''
+      default: 'ydb-dialog-btn__primary'
     },
     confirmButtonCallback: {
       type: Function
@@ -70,10 +72,8 @@ export default {
   methods: {
     close () {
       this.show = false
-      document.querySelector('.app').style.overflowY = 'auto'
     },
     confirm () {
-      this.close()
       this.confirmButtonCallback && this.confirmButtonCallback()
     },
     clickMask () {
@@ -88,81 +88,112 @@ export default {
 <style lang="scss">
 @import "../../assets/scss/variable";
 
-.ydb-modal {
+.ydb-mask {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
-  left: 0;
+  right: 0;
   z-index: 999;
-}
-.ydb-mask,
-.ydb-dialog {
-  position: absolute;
-}
-.ydb-mask {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, .6)
 }
+
 .ydb-dialog {
+  position: fixed;
   top: 50%;
   left: 50%;
-  width: 85%;
-  background-color: #fff;
-  border-radius: pxTorem(10px);
-  transform: translate3d(-50%, -50%, 0);
-}
-.ydb-dialog-header {
-  padding: pxTorem(20px) pxTorem(20px) 0;
-  font-size: $title-font-size;
-  color: $primary-text-color;
+  width: 80%;
+  z-index: 1001;
+  max-width: pxTorem(600px);
   text-align: center;
-}
-.ydb-dialog-content {
-  padding: pxTorem(40px);
-  font-size: $base-font-size;
-}
-.ydb-dialog-footer {
-  position: relative;
-  display: flex;
+  background-color: #fff;
+  border-radius: pxTorem(6px);
+  transform: translate3d(-50%, -50%, 0);
+  overflow: hidden;
 
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    width: 200%;
-    height: 200%;
-    pointer-events: none;
-    border-top: 1px solid $border-color;
-    transform: scale(.5);
-    transform-origin: 0 0;
+  &-#{"hd"} {
+    padding: pxTorem(30px) pxTorem(20px) 0;
+    line-height: 1;
+  }
+
+  &-#{"title"} {
+    font-size: $large-font-size;
+    font-weight: 400;
+    color: $primary-text-color;
+  }
+
+  &-#{"bd"} {
+    padding: pxTorem(40px);
+    font-size: $subtitle-font-size;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  &-#{"ft"} {
+    position: relative;
+    display: flex;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      content: "";
+      height: 1px;
+      pointer-events: none;
+      border-top: 1px solid $border-color;
+      transform: scaleY(.5);
+      transform-origin: 0 0;
+    }
+  }
+
+  &-#{"btn"} {
+    position: relative;
+    display: block;
+    flex: 1 1 auto;
+    font-size: $title-font-size;
+    line-height: 2.6;
+
+    &+&:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      content: "";
+      width: 1px;
+      pointer-events: none;
+      border-left: 1px solid $border-color;
+      transform: scaleX(.5);
+      transform-origin: 0 0;
+    }
+
+    &:active {
+      background-color: $bg-color;
+    }
+
+    &__#{"default"} {
+      color: $primary-text-color;
+    }
+
+    &__#{"primary"} {
+      color: $primary-color;
+    }
+
+    &__#{"danger"} {
+      color: $danger-color;
+    }
   }
 }
-.ydb-dialog-footer .ydb-btn {
-  flex: 1 1 auto;
-  line-height: 2.4;
-  cursor: pointer;
-  border-radius: 0 0 0 pxTorem(10px);
-}
-.ydb-dialog-footer .ydb-btn:active {
-  background-color: $bg-color;
-}
-.ydb-dialog-footer .ydb-btn-confirm {
-  color: #4294F2;
-  border-radius: 0 0 pxTorem(10px) 0;
-}
-.ydb-mask,
+
 .ydb-dialog,
 .modal-enter-active,
 .modal-leave-active {
+  opacity: 1;
   transition: all .3s ease-out;
 }
 .modal-enter .ydb-dialog,
 .modal-leave-to .ydb-dialog {
-  transform: translate3d(-50%, -50%, 0) scale(0.1)
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(.5)
 }
 </style>

@@ -10,10 +10,10 @@ let defaultConfig = {
   closeOnClickOverlay: true,
   showCancelButton: true,
   cancelButtonText: '取消',
-  cancelButtonClass: '',
+  cancelButtonClass: 'ydb-dialog-btn__default',
   showConfirmButton: true,
   confirmButtonText: '确定',
-  confirmButtonClass: '',
+  confirmButtonClass: 'ydb-dialog-btn__primary',
   confirmButtonCallback: null
 }
 
@@ -28,12 +28,9 @@ const Dialog = (options = {}) => {
   })
 
   instance.show = true
-  document.querySelector('.app').style.overflowY = 'hidden'
   Object.keys(config).forEach(key => {
     instance[key] = config[key]
   })
-
-  console.log(instance)
 
   document.body.appendChild(instance.$el)
 }

@@ -135,13 +135,13 @@ export default {
     showModal () {
       let vm = this
       this.$dialog({
-        title: '',
         closeOnClickOverlay: false,
         content: '确定要删除这个门店吗？',
         confirmButtonText: '删除',
-        confirmButtonClass: 'ydb-text-danger',
+        confirmButtonClass: 'ydb-dialog-btn__danger',
         confirmButtonCallback () {
           vm.$toast('你点击了确定')
+          this.close()
         }
       })
     }
