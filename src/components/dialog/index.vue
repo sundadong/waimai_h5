@@ -112,7 +112,7 @@ export default {
   overflow: hidden;
 
   &-#{"hd"} {
-    padding: pxTorem(30px) pxTorem(20px) 0;
+    padding: pxTorem(20px) pxTorem(20px) 0;
     line-height: 1;
   }
 
