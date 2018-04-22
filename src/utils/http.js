@@ -1,6 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import util from './util'
+import Toast from '@/components/toast'
 
 // 请求基础url
 const baseURL = '/'
@@ -20,7 +21,7 @@ const http = axios.create({
 // 请求拦截
 http.interceptors.request.use(config => {
   // 请求头添加token
-  const token = localStorage.getItem('access_token')
+  const token = localStorage.getItem('TOKEN') ? JSON.parse(localStorage.getItem('TOKEN')) : null
   if (token && token.access_token) {
     config.headers['Access-Toekn'] = token.access_token.value
   }
@@ -34,17 +35,16 @@ http.interceptors.request.use(config => {
 
   return config
 }, error => {
-  console.log(error)
-  return Promise.reject(error)
+  Toast(error)
+  // return Promise.reject(error)
 })
 
 // 响应拦截
 http.interceptors.response.use(res => {
-  console.log(res)
-  return res
+  return res.data
 }, error => {
-  console.log(error.message)
-  return Promise.reject(error)
+  Toast(error)
+  // return Promise.reject(error)
 })
 
 export default http

@@ -32,6 +32,7 @@
 
 <script>
 import logo from '../assets/images/logo.png'
+import api from '@/api'
 
 export default {
   name: 'home',
@@ -131,6 +132,14 @@ export default {
       ]
     }
   },
+  created () {
+    api.updateUserInfo({
+      username: 'liangya'
+    })
+      .then(data => {
+        console.log(data)
+      })
+  },
   methods: {
     showModal () {
       let vm = this
@@ -140,7 +149,10 @@ export default {
         confirmButtonText: '删除',
         confirmButtonClass: 'ydb-dialog-btn__danger',
         confirmButtonCallback () {
-          vm.$toast('你点击了确定')
+          vm.$toast({
+            iconClass: 'ydb-icon ydb-icon-smile',
+            message: '你点击了确定'
+          })
           this.close()
         }
       })

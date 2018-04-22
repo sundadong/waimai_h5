@@ -1,14 +1,16 @@
 import $http from '@/utils/http'
 
-function getUserInfo (id) {
-  return $http.get('getUserInfo?id=' + id)
+function getUserInfo (data) {
+  return $http.get('getUserInfo', {
+    params: data
+  })
 }
 
 function updateUserInfo (data) {
   return $http.post('updateUserInfo', data)
 }
 
-export {
+export default {
   getUserInfo,
   updateUserInfo
 }
