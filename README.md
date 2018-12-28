@@ -1,6 +1,6 @@
 # waimai_h5
 
-> A Vue.js project
+> 基于vue的外卖h5端
 
 ## Build Setup
 
