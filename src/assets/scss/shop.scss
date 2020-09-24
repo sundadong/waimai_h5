@@ -1,0 +1,56 @@
+.ydb-shop-item {
+  margin-bottom: pxTorem(15px);
+}
+
+.ydb-shop-item>a {
+  display: flex;
+  padding: pxTorem(20px);
+  background-color: #fff;
+}
+
+.ydb-shop-info {
+  flex: 1 1 auto;
+  padding-left: pxTorem(10px);
+}
+
+.ydb-shop-info p,
+.ydb-shop-activity p {
+  margin-bottom: pxTorem(8px);
+}
+
+.ydb-shop-logo {
+  width: pxTorem(88px);
+  height: pxTorem(88px);
+  border-radius: pxTorem(5px);
+}
+
+.ydb-shop-name {
+  margin-bottom: pxTorem(4px);
+  font-size: $title-font-size;
+  color: $primary-text-color;
+}
+
+.ydb-shop-address {
+  max-width: pxTorem(460px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ydb-shop-address>.ydb-icon {
+  color: $primary-color;
+}
+
+.ydb-shop-activity {
+  margin-top: pxTorem(10px);
+  padding: pxTorem(20px) 0;
+  font-size: $small-font-size;
+}
+
+.ydb-shop-activity p:last-child {
+  margin-bottom: 0;
+}
+
+.ydb-shop-activity .ydb-tag {
+  margin-right: pxTorem(10px);
+}

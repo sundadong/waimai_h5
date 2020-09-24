@@ -1,0 +1,13 @@
+@import './variable';
+
+.ydb-action-bar,
+.ydb-action-bar>a {
+  color: $bright-color;
+}
+.ydb-action-bar {
+  padding: 0 pxTorem(20px);
+  height: $header-height;
+  font-size: $title-font-size;
+  line-height: $header-height;
+  background-color: $primary-color;
+}

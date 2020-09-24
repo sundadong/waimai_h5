@@ -1,0 +1,32 @@
+@import './function';
+
+$base-font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+$base-line-height: 1.5;
+
+$large-font-size: pxTorem(36px);
+$title-font-size: pxTorem(32px);
+$subtitle-font-size: pxTorem(30px);
+$base-font-size: pxTorem(28px);
+$small-font-size: pxTorem(26px);
+$extra-small-font-size: pxTorem(22px);
+
+$black-color: #000000;
+$bright-color: #ffffff;
+$bg-color: #f8f8f8;
+$border-color: #e0e6ed;
+$primary-text-color: #1F2D3D;
+$base-text-color: #475669;
+$secondary-text-color: #8492A6;
+
+$primary-color: #4294F2;
+$success-color: #44BF89;
+$warning-color: #F3A552;
+$danger-color: #f96768;
+
+$primary-bg: linear-gradient(to right, #6DC3FF, #2894FF);
+$success-bg: linear-gradient(to right, #54E9A8, #44BF89);
+$warning-bg: linear-gradient(to right, #F9C084, #F3A552);
+$danger-bg: linear-gradient(to right, #F6A4A5, #F96668);
+
+$header-height: pxTorem(88px);
+$footer-height: pxTorem(98px);

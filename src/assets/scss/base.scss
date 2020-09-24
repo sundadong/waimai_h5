@@ -1,0 +1,91 @@
+@import "./variable";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: $base-text-color;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+:focus {
+  outline: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+html,
+body,
+.app {
+  height: 100%;
+}
+
+body,
+.app {
+  font-size: $base-font-size;
+  font-family: $base-font-family;
+  color: $base-text-color;
+  line-height: $base-line-height;
+  background-color: $bg-color;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-header,
+.app-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+
+.app-header {
+  top: 0;
+  height: $header-height;
+}
+
+.app-footer {
+  bottom: 0;
+  height: $footer-height;
+}
+
+.app-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.has-header .app-body {
+  padding-top: $header-height;
+}
+
+.has-footer .app-body {
+  padding-bottom: $footer-height;
+}

@@ -1,0 +1,70 @@
+@import './variable';
+
+.ydb-stepper {
+  position: relative;
+  display: inline-block;
+}
+
+.ydb-stepper-minus,
+.ydb-stepper-plus {
+  position: absolute;
+  top: 0;
+  width: pxTorem(40px);
+  height: pxTorem(40px);
+  font-size: $base-font-size;
+  color: $bright-color;
+  text-align: center;
+  text-indent: -9999px;
+  background: $primary-bg;
+  border: none;
+  border-radius: pxTorem(40px);
+  cursor: pointer;
+}
+
+.ydb-stepper-minus {
+  left: 0;
+}
+
+.ydb-stepper-plus {
+  right: 0;
+}
+
+.ydb-stepper-minus::before,
+.ydb-stepper-plus::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  width: pxTorem(20px);
+  height: pxTorem(4px);
+  background-color: $bright-color;
+  transform: translate(-50%, -50%);
+}
+
+.ydb-stepper-plus::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  height: pxTorem(20px);
+  width: pxTorem(4px);
+  background-color: $bright-color;
+  transform: translate(-50%, -50%);
+}
+
+.ydb-stepper-input {
+  width: pxTorem(140px);
+  padding: 0 pxTorem(40px);
+  height: pxTorem(40px);
+  font-size: $small-font-size;
+  color: $base-text-color;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  vertical-align: top;
+}
+
+.ydb-stepper-input::-webkit-outer-spin-button,
+.ydb-stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

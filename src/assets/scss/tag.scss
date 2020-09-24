@@ -1,0 +1,31 @@
+@import "./variable";
+
+.ydb-tag {
+  display: inline-block;
+  margin-top: pxTorem(-3px);
+  padding: pxTorem(6px);
+  font-size: pxTorem(20px);
+  line-height: 1;
+  border-radius: pxTorem(4px);
+  vertical-align: middle;
+}
+
+.ydb-tag-primary {
+  color: #fff;
+  background: $primary-bg;
+}
+
+.ydb-tag-success {
+  color: #fff;
+  background: $success-bg;
+}
+
+.ydb-tag-warning {
+  color: #fff;
+  background: $warning-bg;
+}
+
+.ydb-tag-danger {
+  color: #fff;
+  background: $danger-bg;
+}

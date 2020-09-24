@@ -1,0 +1,13 @@
+@import "./variable";
+
+.ydb-badge {
+  display: inline-block;
+  min-width: pxTorem(38px);
+  padding: pxTorem(8px);
+  font-size: $extra-small-font-size;
+  color: $bright-color;
+  line-height: 1;
+  text-align: center;
+  background-color: $danger-color;
+  border-radius: pxTorem(20px);
+}
